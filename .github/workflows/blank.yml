@@ -1,0 +1,60 @@
+name: action.yml demo
+
+on: 
+  issue_comment:
+    types: [created, deleted]
+  issues:
+    types: [opened, edited, milestoned]
+      
+jobs:
+  # demo1: OpenSfhit Secret 更新
+  openshift-update:
+    runs-on: [self-hosted]
+    name: openshift 
+    steps:
+      # step1: 通过 Action, 使用 PAM 查询密码
+      - id: step1
+        name: username password obtain
+        uses: heyh-bit/pam-obtain@v98
+        with:
+          app-id: "test"
+          user-name: "root"
+          asset-name: "resource"
+          connect-host: "10.13.1.2"
+          request-reason: "hello world1"
+          credential: ${{ secrets.PAM_TOKEN }}
+      # step2: 通过 env.password 使用查询的密码
+      - id: step2
+        name: 修改 openshift 的 secret 值
+        run: >
+          oc create secret generic hello-world
+          --from-literal=username=hello
+          --from-literal=password=${{ env.password }}
+          --dry-run=client -o yaml -n default | oc replace -f -
+
+  # demo2: MySQL 内容查询
+  mysql-update:
+    runs-on: [self-hosted]
+    name: mysql
+    steps:
+      # step1: 通过 Action, 使用 PAM 查询密码
+      - id: step1
+        name: username password obtain
+        uses: heyh-bit/pam-obtain@v98
+        with:
+          app-id: "test"
+          user-name: "root"
+          asset-name: "resource"
+          connect-host: "10.13.1.2"
+          request-reason: "hello world2"
+          credential: ${{ secrets.PAM_TOKEN }}
+      # step2: 通过 env.password 使用查询的密码
+      - id: step2
+        name: MySQL 更新
+        run: >
+          podman run registry.cn-hangzhou.aliyuncs.com/hos_test/mysql-client 
+          mysql -u root
+          -p${{ env.password }}
+          -h "8.221.143.170"
+          -P 3306 
+          -e "show databases;"
