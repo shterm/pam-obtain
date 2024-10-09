@@ -15,7 +15,7 @@ jobs:
       # step1: 通过 Action, 使用 PAM 查询密码
       - id: step1
         name: username password obtain
-        uses: heyh-bit/pam-obtain@v98
+        uses: shterm/pam-obtain@v1
         with:
           app-id: "test"
           user-name: "root"
@@ -40,7 +40,7 @@ jobs:
       # step1: 通过 Action, 使用 PAM 查询密码
       - id: step1
         name: username password obtain
-        uses: heyh-bit/pam-obtain@v98
+        uses: shterm/pam-obtain@v1
         with:
           app-id: "test"
           user-name: "root"
