@@ -242,7 +242,7 @@ jobs:
       - id: step2
         name: mysql update
         run: >
-          podman run registry.cn-hangzhou.aliyuncs.com/hos_test/mysql-client 
+          docker run registry.cn-hangzhou.aliyuncs.com/hos_test/mysql-client 
           mysql -u root
           -p${{ env.password }}
           -h "8.221.143.170"
