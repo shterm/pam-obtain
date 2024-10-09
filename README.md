@@ -169,25 +169,24 @@ jobs:
 ### Example
 
 ```yaml
-name: PAM Obtain Demo
+name: action.yml demo
 
-on: # 触发时机
-  push:
+on: 
   issue_comment:
     types: [created, deleted]
   issues:
     types: [opened, edited, milestoned]
-
+      
 jobs:
-  openshift_demo:
-    runs-on: [self-hosted] # 自建环境
-    name: openshift
+  # demo1: OpenSfhit Secret 更新
+  openshift-update:
+    runs-on: [self-hosted]
+    name: openshift 
     steps:
       # step1: 通过 Action, 使用 PAM 查询密码
       - id: step1
-      	name: Import pam-obtain using username password obtain Action
+        name: username password obtain
         uses: shterm/pam-obtain@v1
-        # pam-obtain Action Arguments
         with:
           app-id: "test"
           user-name: "root"
@@ -200,7 +199,7 @@ jobs:
         run: >
           oc create secret generic hello-world
           --from-literal=username=hello
-          --from-literal=pwd=${{ env.password }}
+          --from-literal=password=${{ env.password }}
           --dry-run=client -o yaml -n default | oc replace -f -
 ```
 
@@ -213,16 +212,16 @@ jobs:
 ### Example
 
 ```yaml
-name: PAM Obtain Demo
+name: action.yml demo
 
-on: # 触发时机
-  push:
+on: 
   issue_comment:
     types: [created, deleted]
   issues:
     types: [opened, edited, milestoned]
-
+      
 jobs:
+  # demo2: MySQL 内容查询
   mysql-update:
     runs-on: [self-hosted]
     name: mysql
@@ -231,7 +230,6 @@ jobs:
       - id: step1
         name: username password obtain
         uses: shterm/pam-obtain@v1
-        # pam-obtain Action Arguments
         with:
           app-id: "test"
           user-name: "root"
@@ -240,7 +238,7 @@ jobs:
           credential: ${{ secrets.APP_CERT_VALUES }}
       # step2: 通过 env.password 使用查询的密码
       - id: step2
-        name: mysql update
+        name: MySQL 更新
         run: >
           docker run registry.cn-hangzhou.aliyuncs.com/hos_test/mysql-client 
           mysql -u root
