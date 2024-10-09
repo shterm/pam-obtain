@@ -4,7 +4,7 @@ pam-obtain 是由 GitHub Action 功能编写获取 PAM 托管资产中密码的�
 
 ## 准备开始
 
-- Docker | Podman 及访问 DockerHub 环境;
+- Docker 及访问 DockerHub 环境;
 - GitHub 及访问 GitHub 环境;
 - 一台 Linux | Windows | MacOS 主机, 用于搭建 GitHub Actions Runners (Github 自托管运行器) 环境;
 -  GitHub Actions Runners (Github 自托管运行器) 环境主机可与 GitHub Actions 通信;
@@ -145,15 +145,14 @@ jobs:
     steps:
       - id: step1
       	name: Import pam-obtain using username password obtain Action
-        # heyh-bit-pam-obtain@v52 
-        uses: heyh-bit/pam-obtain@v96
+        uses: shterm/pam-obtain@v1
         # pam-obtain Action Arguments
         with:
           app-id: "test"
           user-name: "root"
           asset-name: "resource"
           connect-host: "ip address"
-          credential: ${{ secrets.PAM_TOKEN }}
+          credential: ${{ secrets.APP_CERT_VALUES }}
 ```
 
 ### Arguments
@@ -187,15 +186,14 @@ jobs:
       # step1: 通过 Action, 使用 PAM 查询密码
       - id: step1
       	name: Import pam-obtain using username password obtain Action
-        # heyh-bit/pam-obtain@v96
-        uses: heyh-bit/pam-obtain@v96
+        uses: shterm/pam-obtain@v1
         # pam-obtain Action Arguments
         with:
           app-id: "test"
           user-name: "root"
           asset-name: "resource"
           connect-host: "ip address"
-          credential: ${{ secrets.PAM_TOKEN }}
+          credential: ${{ secrets.APP_CERT_VALUES }}
       # step2: 通过 env.password 使用查询的密码
       - id: step2
         name: 修改 openshift 的 secret 值
@@ -232,14 +230,14 @@ jobs:
       # step1: 通过 Action, 使用 PAM 查询密码
       - id: step1
       - name: username password obtain
-        uses: heyh-bit/pam-obtain@v96
+        uses: shterm/pam-obtain@v1
         # pam-obtain Action Arguments
         with:
           app-id: "test"
           user-name: "root"
           asset-name: "resource"
           connect-host: "10.13.1.2"
-          credential: ${{ secrets.PAM_TOKEN }}
+          credential: ${{ secrets.APP_CERT_VALUES }}
       # step2: 通过 env.password 使用查询的密码
       - id: step2
         name: mysql update
