@@ -151,7 +151,7 @@ jobs:
           app-id: "test"
           user-name: "root"
           asset-name: "resource"
-          connect-host: "ip address"
+          connect-host: "10.13.1.2"
           credential: ${{ secrets.APP_CERT_VALUES }}
 ```
 
@@ -192,7 +192,7 @@ jobs:
           app-id: "test"
           user-name: "root"
           asset-name: "resource"
-          connect-host: "ip address"
+          connect-host: "10.13.1.2"
           credential: ${{ secrets.APP_CERT_VALUES }}
       # step2: 通过 env.password 使用查询的密码
       - id: step2
