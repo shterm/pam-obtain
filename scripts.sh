@@ -7,7 +7,7 @@ ASSET_NAME="'$ASSET_NAME'"
 REQUEST_REASON="'$REQUEST_REASON'"
 CONNECT_HOST="$CONNECT_HOST"
 
-# credential transfer credential-file
+# credential transfer credential file
 echo $CREDENTIAL | tr -d '\n' >> $GITHUB_ENV
 
 temp=$(echo "docker run -v $GITHUB_ENV:/workspace/cre.cred --rm registry.cn-hangzhou.aliyuncs.com/hos_test/pam-sdk:v3 $APP_ID $USER_NAME $ASSET_NAME $REQUEST_REASON $CONNECT_HOST '/workspace/cre.cred' | grep -v 'Credential filePath'")
