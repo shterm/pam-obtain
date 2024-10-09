@@ -144,7 +144,7 @@ jobs:
     name: openshift
     steps:
       - id: step1
-      	name: Import pam-obtain using username password obtain Action
+        name: Import pam-obtain using username password obtain Action
         uses: shterm/pam-obtain@v1
         # pam-obtain Action Arguments
         with:
