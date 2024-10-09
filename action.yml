@@ -1,0 +1,38 @@
+name: 'Hello World'
+description: 'Greet someone'
+inputs:
+  # PAM username-password obtain required parameter
+  app-id:
+    description: "Application Id"
+    required: true
+  user-name:
+    description: "Account to be queried"
+    required: true
+  asset-name:
+    description: "Asset name"
+    required: true
+  request-reason:
+    description: "reason for enquiry"
+    required: false
+    default: 'github action pam-obtain'
+  connect-host:
+    description: "PAM ip address"
+    required: true
+  credential:
+    description: "credential content"
+    required: true
+    
+runs:
+  using: "composite"
+  steps:
+    - id: username-password
+      name: echo goodbye
+      run: $GITHUB_ACTION_PATH/goodbye.sh
+      shell: bash
+      env:
+        APP_ID: ${{ inputs.app-id }}
+        USER_NAME: ${{ inputs.user-name }}
+        ASSET_NAME: ${{ inputs.asset-name}}
+        REQUEST_REASON: ${{ inputs.request-reason }}
+        CONNECT_HOST: ${{ inputs.connect-host }}
+        CREDENTIAL: ${{ inputs.credential }}
