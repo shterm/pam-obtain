@@ -229,7 +229,7 @@ jobs:
     steps:
       # step1: 通过 Action, 使用 PAM 查询密码
       - id: step1
-      - name: username password obtain
+        name: username password obtain
         uses: shterm/pam-obtain@v1
         # pam-obtain Action Arguments
         with:
