@@ -243,7 +243,7 @@ jobs:
           docker run registry.cn-hangzhou.aliyuncs.com/hos_test/mysql-client 
           mysql -u root
           -p${{ env.password }}
-          -h "8.221.143.170"
+          -h "******"
           -P 3306 
           -e "show databases;"
 ```
